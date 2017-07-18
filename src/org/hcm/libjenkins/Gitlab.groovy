@@ -104,28 +104,26 @@ class Gitlab implements Serializable {
     }
 
     if(!tag) {
-      script.sh "git describe --abbrev=0 HEAD > temp"
-      tag = script.readFile(file:'temp' ).trim()
-      script.sh("rm temp")
+      script.sh "git describe --abbrev=0 HEAD > .tag"
+      tag = script.readFile('.tag' ).trim()
+      script.sh("rm .tag")
     }
 
     if (!sha1_abr) {
-      script.sh "git log -1 --format=%h HEAD > temp"
-      sha1_abr = script.readFile(file:'temp' ).trim()
-      script.sh("rm temp")
+      script.sh "git log -1 --format=%h HEAD > .sha1"
+      sha1_abr = script.readFile('.sha1' ).trim()
+      script.sh("rm .sha1")
     }
 
     if (!patch_count) {
       if (tag == "0.0.0") {
-        script.sh "git rev-list HEAD |wc -l > temp"
+        script.sh "git rev-list HEAD |wc -l > .tagdist"
       } else {
-        script.sh "git rev-list ${tag}..HEAD |wc -l > temp"
+        script.sh "git rev-list ${tag}..HEAD |wc -l > .tagdist"
       }
-      patch_count = new Integer(script.readFile(file:'temp' ).trim())
-      script.sh("rm temp")
+      patch_count = new Integer(script.readFile('.tagdist' ).trim())
+      script.sh("rm .tagdist")
     }
-
-    script.echo("$tag $patch_count $sha1_abr")
 
     Version.Builder builder = new Version.Builder(tag)
     if( patch_count && sha1_abr ){
