@@ -44,7 +44,16 @@ class TestJenkinsCommonLib extends BasePipelineTest {
     assertEquals('Verify is_upstream ', false, script.gitlab_lib.is_upstream('feature'))
     assertEquals('Verify is_upstream ', true, script.gitlab_lib.is_upstream('master'))
     assertEquals('Verify is_upstream ', true, script.gitlab_lib.is_upstream('rel-1.2.3'))
-    printCallStack()
+
+    //printCallStack()
+  }
+
+  @Test
+  void verify_increment_version() throws Exception {
+    def script = loadScript("template/pipeline/template.groovy")
+    assertEquals('Verify increment_version ', "1.2.4", script.gitlab_lib.increment_version('1.2.3'))
+
+    //printCallStack()
   }
 
 }
