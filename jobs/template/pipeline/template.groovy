@@ -1,9 +1,6 @@
-@Library('jenkins-commons')
-import org.hcm.libjenkins.Gitlab
+@Library('jenkins-commons') _
 
-gitlab_lib = new Gitlab(this)
-
-node() {
+withWrapNode('some_stage') {
   echo "Hello World!"
 }
 
