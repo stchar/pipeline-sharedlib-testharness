@@ -22,7 +22,7 @@ and JenkinsPipelineUnit test harness
 │           └── *.groovy             # JenkinsPipelineUnit tests
 └── vars
     └── gitlab_stage.groovy          # Wrapper for gitalbCommitStatus
-
+```
 
 ## Contribution
 
