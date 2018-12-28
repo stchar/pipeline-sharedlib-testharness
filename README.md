@@ -22,7 +22,7 @@ and JenkinsPipelineUnit test harness
 │           └── *.groovy             # JenkinsPipelineUnit tests
 └── vars
     └── gitlab_stage.groovy          # Wrapper for gitalbCommitStatus
-
+```
 
 ## Contribution
 
@@ -34,7 +34,7 @@ and JenkinsPipelineUnit test harness
 ./gradlew -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=3128 test
 ```
 
-#### Additional Links
+## Additional Links
 * https://jenkins.io/doc/book/pipeline/shared-libraries/
 * https://www.cloudbees.com/blog/top-10-best-practices-jenkins-pipeline-plugin
 * https://github.com/lesfurets/JenkinsPipelineUnit
