@@ -1,21 +1,13 @@
-package org.hcm.libjenkins;
+package org.hcm.libjenkins
 
 @Grab('com.github.zafarkhaja:java-semver:0.9.0')
-
-import com.github.zafarkhaja.semver.Version;
-
+import com.github.zafarkhaja.semver.Version
+import groovy.transform.InheritConstructors
 // Class declaration
-class Gitlab implements Serializable {
-  def script;
+@InheritConstructors
+class Gitlab extends AbstractLibClass {
+  def script
 
-  Gitlab() {
-
-  }
-
-
-  Gitlab(script) {
-    this.script=script
-  }
 
   // Helper functions
   def is_upstream(name) {
@@ -24,67 +16,11 @@ class Gitlab implements Serializable {
   }
 
   /**
-  * Build os-specific file path
-  * @param pathArray {ArrayList} List of filesystem nodes
-  * @param escape_flag {boolean} escape path delimeter symbol (windows only)
-  * @return {String} file path
-  * @example
-  * <code>
-  *   // on unix
-  *   buidFilePath(["/usr","local","bin"])
-  *   // returns /usr/local/bin
-  * </code>
-  *
-  * <code>
-  *   // on windows
-  *   buidFilePath(["C:","somefolder","somefile"])
-  *   // returns C:\somefolder\somefile
-  *   buidFilePath(["C:","somefolder","somefile"],escape_flag=true)
-  *   // returns C:\\somefolder\\somefile
-  * </code>
-  */
-  def buidFilePath(pathArray, escape_flag=false) {
-    if (!script.isUnix()) {
-       if(escape_flag) {return pathArray.join('\\\\')}
-       return pathArray.join('\\')
-    }
-    return pathArray.join('/')
-  }
-
-  /**
-  * Build os-specific file path
-  * @example
-  * <code>
-  *   // on unix
-  *   buidPath([buidFilePath(["/bin"]),buidFilePath(["/usr","bin"]),buidFilePath(["/usr","local","bin"])])
-  *   // returns/bin:/usr/bin:/usr/local/bin
-  * </code>
-  *
-  * <code>
-  *   // on windows
-  *   buidPath([ buidFilePath(["C:","somefolder","somefile"]),buidFilePath(["D:","somefolder","somefile"]) ])
-  *   // returns C:\somefolder\somefile;D:\somefolder\somefile
-  * </code>
-  */
-  /**
-  * Build os-specific content of Path Variable
-  * @example:
-  * buidPath([buidFilePath(["/bin"]),buidFilePath(["/usr","bin"]),buidFilePath(["/usr","local","bin"])])
-  * /bin:/usr/bin:/usr/local/bin
-  */
-  def buidPath(pathArray) {
-    if (!script.isUnix()) {
-       return pathArray.join(';')
-    }
-    return pathArray.join(':')
-  }
-
-  /**
   * Incremet semver value
   */
   def increment_version(semver) {
-    Version v = Version.valueOf(semver);
-    return v.incrementPatchVersion().toString();
+    Version v = Version.valueOf(semver)
+    return v.incrementPatchVersion().toString()
   }
 
   /**
@@ -129,7 +65,7 @@ class Gitlab implements Serializable {
     if( patch_count && sha1_abr ){
       builder.setBuildMetadata("build.${patch_count}.ref${sha1_abr}")
     }
-    return builder.build().toString();
+    return builder.build().toString()
   }
 
   /**
