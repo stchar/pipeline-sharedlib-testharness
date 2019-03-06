@@ -5,40 +5,87 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at https://docs.gradle.org/3.5/userguide/tutorial_java_projects.html
  */
+plugins {
+  id "com.mkobit.jenkins.pipelines.shared-library" version "0.7.0"
+}
 
 // Apply the java plugin to add support for Java
-//apply plugin: 'java'
+// apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: "com.mkobit.jenkins.pipelines.shared-library"
 
 // In this section you declare where to find the dependencies of your project
 repositories {
   // Use 'jcenter' for resolving your dependencies.
   // You can declare any Maven/Ivy/file repository here.
   //All sub-projects will now refer to the same 'libs' directory
+  maven { url 'http://ct.elcom.local/download/maven2/' } // spb local mirror of some packages
+  maven { url 'http://bits.netbeans.org/maven2/' }
+  maven { url 'https://repo.jenkins-ci.org/releases/' }
   jcenter()
+  maven { url 'https://mvnrepository.com/artifact/' }
+
   flatDir {
     dirs "jars"
   }
 }
 
-configurations {
-  testPlugins {}
+dependencies {
+  testImplementation(group: 'junit', name: 'junit', version: '4.12')
+
+  compile group: 'junit', name: 'junit', version: '4.12'
+  compile group: 'org.assertj',           name: 'assertj-core',   version: '3.4.1'
+
+  // Jenkis Pipeline JUnit
+  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version:'1.1'
+  compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
+
+  // grapes
+  compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.0-alpha-3'
+  compile       group: 'com.github.zafarkhaja',  name: 'java-semver',    version: '0.9.0'
+  compile       group: 'org.apache.commons',     name: 'commons-math3',  version: '3.4.1'
+
+  // integration tests dependecies
+  integrationTestCompile group: 'org.jvnet.mock-javamail',name: 'mock-javamail',  version: '1.9'
 }
 
 // In this section you declare the dependencies for your production and test code
-dependencies {
-  compile 'org.slf4j:slf4j-api:1.7.22'
-  compile 'org.codehaus.groovy:groovy-all:2.4.7'
-  // Jenkis Pipeline JUnit
-  testCompile group:'com.lesfurets', name:'jenkins-pipeline-unit', version:'1.1'
-  testCompile group: 'junit', name: 'junit', version: '4.11'
+compileGroovy {
+  // Create temp file.
+  File temp = File.createTempFile("config", ".groovy");
+
+  // Delete temp file when program exits.
+  temp.deleteOnExit();
+
+  // Write to temp file
+  BufferedWriter out = new BufferedWriter(new FileWriter(temp));
+  out.write("""\
+        withConfig(configuration) {
+            configuration.setDisabledGlobalASTTransformations(['groovy.grape.GrabAnnotationTransformation'] as Set)
+        }
+    """.stripIndent());
+  out.close();
+  groovyOptions.configurationScript = temp
 }
-task copyTask(type: Copy,) {
+
+
+task copyLibTask(type: Copy,) {
   from '.'
   into 'build/libs/jenkins-commons@master'
   include 'src/**'
   include 'vars/**'
 }
-tasks.withType(Test) {
-  tasks.copyTask.execute()
+
+test {
+  dependsOn tasks.copyLibTask
+}
+
+sharedLibrary {
+  // TODO: this will need to be altered when auto-mapping functionality is complete
+  // coreVersion.set(jenkinsIntegration.downloadDirectory.file("core-version.txt").map { it.asFile.readText().trim() })
+  // TODO: retrieve downloaded plugin resource
+  pluginDependencies {
+    dependency("org.jenkins-ci.plugins", "pipeline-input-step", "2.8")
+    dependency("org.jenkins-ci.plugins", "email-ext", "2.63")
+  }
 }
