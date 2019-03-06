@@ -6,13 +6,12 @@
  * user guide available at https://docs.gradle.org/3.5/userguide/tutorial_java_projects.html
  */
 plugins {
-  id "com.mkobit.jenkins.pipelines.shared-library" version "0.7.0"
-}
+  id "com.mkobit.jenkins.pipelines.shared-library" version "0.10.1"
+  id "jacoco"
+  id "java"
+  id "groovy"
 
-// Apply the java plugin to add support for Java
-// apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: "com.mkobit.jenkins.pipelines.shared-library"
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -24,7 +23,7 @@ repositories {
   maven { url 'https://repo.jenkins-ci.org/releases/' }
   jcenter()
   maven { url 'https://mvnrepository.com/artifact/' }
-
+  mavenLocal()
   flatDir {
     dirs "jars"
   }
@@ -37,7 +36,7 @@ dependencies {
   compile group: 'org.assertj',           name: 'assertj-core',   version: '3.4.1'
 
   // Jenkis Pipeline JUnit
-  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version:'1.1'
+  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version:'1.2'
   compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
 
   // grapes
@@ -68,24 +67,35 @@ compileGroovy {
   groovyOptions.configurationScript = temp
 }
 
-
-task copyLibTask(type: Copy,) {
-  from '.'
-  into 'build/libs/jenkins-commons@master'
-  include 'src/**'
-  include 'vars/**'
-}
-
-test {
-  dependsOn tasks.copyLibTask
+sourceSets {
+  jobs {
+    groovy {
+      srcDirs 'jobs'
+      compileClasspath += main.compileClasspath
+    }
+    compileClasspath += sourceSets.main.output
+    runtimeClasspath += sourceSets.main.output
+  }
 }
 
 sharedLibrary {
-  // TODO: this will need to be altered when auto-mapping functionality is complete
-  // coreVersion.set(jenkinsIntegration.downloadDirectory.file("core-version.txt").map { it.asFile.readText().trim() })
-  // TODO: retrieve downloaded plugin resource
+  coreVersion = "2.176.2"
+  testHarnessVersion = "2.54"
   pluginDependencies {
+    workflowCpsGlobalLibraryPluginVersion = "2.15"
     dependency("org.jenkins-ci.plugins", "pipeline-input-step", "2.8")
     dependency("org.jenkins-ci.plugins", "email-ext", "2.63")
+  }
+}
+
+test {
+  testLogging {
+    events "PASSED", "FAILED", "SKIPPED"
+  }
+}
+
+integrationTest {
+  testLogging {
+    events "PASSED", "FAILED", "SKIPPED"
   }
 }

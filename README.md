@@ -33,7 +33,7 @@ and JenkinsPipelineUnit test harness (see slides https://slides.com/stasovchar/d
 ./gradlew check
 
 # Runing gradle behind a proxy
-./gradlew -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=3128 test
+# ./gradlew -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=3128 check
 ```
 
 ## Slides

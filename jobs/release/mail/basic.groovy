@@ -1,8 +1,7 @@
 package release.mail
 
-@Library('jenkins-commons')
-import org.hcm.libjenkins.Release
-def release_lib = new Release(this)
+def jc=library('jenkins-commons')
+def release_lib = jc.org.hcm.libjenkins.Release.new(this)
 
 def component = [:]
 component.name          = component.name          ? component.name          : 'component'
