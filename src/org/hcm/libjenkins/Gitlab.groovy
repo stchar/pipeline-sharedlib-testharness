@@ -6,8 +6,6 @@ import groovy.transform.InheritConstructors
 // Class declaration
 @InheritConstructors
 class Gitlab extends AbstractLibClass {
-  def script
-
 
   // Helper functions
   def is_upstream(name) {

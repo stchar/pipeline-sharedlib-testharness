@@ -8,7 +8,7 @@ import org.junit.Test
 import org.junit.rules.ExpectedException
 
 import static com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration.library
-import static com.lesfurets.jenkins.unit.global.lib.LocalSource.localSource
+import static com.lesfurets.jenkins.unit.global.lib.ProjectSource.projectSource
 import static org.junit.Assert.assertEquals
 
 class TestRelease extends BasePipelineTest {
@@ -23,12 +23,12 @@ class TestRelease extends BasePipelineTest {
     super.setUp()
 
     def library = library().name('jenkins-commons')
-        .defaultVersion("master")
-        .allowOverride(true)
-        .implicit(true)
-        .targetPath('build/libs')
-        .retriever(localSource('build/libs'))
-        .build()
+                  .defaultVersion('<notNeeded>')
+                  .allowOverride(true)
+                  .implicit(false)
+                  .targetPath('<notNeeded>')
+                  .retriever(projectSource())
+                  .build()
     helper.registerSharedLibrary(library)
 
 

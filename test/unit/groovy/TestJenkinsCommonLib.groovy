@@ -1,16 +1,16 @@
 
 import static com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration.library
-import static com.lesfurets.jenkins.unit.global.lib.LocalSource.localSource
+import static com.lesfurets.jenkins.unit.global.lib.ProjectSource.projectSource
 
 import org.junit.Before
 import org.junit.Test
 
 import com.lesfurets.jenkins.unit.BasePipelineTest
 
+import com.lesfurets.jenkins.unit.MethodCall
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
+import static org.assertj.core.api.Assertions.assertThat
 import static org.junit.Assert.assertEquals
-
-//import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
-//import static org.junit.Assert.assertTrue
 
 class TestJenkinsCommonLib extends BasePipelineTest {
 
@@ -22,12 +22,12 @@ class TestJenkinsCommonLib extends BasePipelineTest {
       scriptRoots += 'jobs'
       super.setUp()
       def library = library().name('jenkins-commons')
-                       .defaultVersion("master")
-                       .allowOverride(true)
-                       .implicit(true)
-                       .targetPath('build/libs')
-                       .retriever(localSource('build/libs'))
-                       .build()
+                        .defaultVersion('<notNeeded>')
+                        .allowOverride(true)
+                        .implicit(false)
+                        .targetPath('<notNeeded>')
+                        .retriever(projectSource())
+                        .build()
       helper.registerSharedLibrary(library)
   }
 
