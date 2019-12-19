@@ -49,4 +49,4 @@ and JenkinsPipelineUnit test harness (see slides https://slides.com/stasovchar/d
 * https://www.cloudbees.com/blog/top-10-best-practices-jenkins-pipeline-plugin
 * https://github.com/lesfurets/JenkinsPipelineUnit
 * https://github.com/mkobit/jenkins-pipeline-shared-libraries-gradle-plugin
-* https://github.com/jenkinsci/jenkins-test-harnes
+* https://github.com/jenkinsci/jenkins-test-harness
