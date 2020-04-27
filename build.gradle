@@ -18,7 +18,6 @@ repositories {
   // Use 'jcenter' for resolving your dependencies.
   // You can declare any Maven/Ivy/file repository here.
   //All sub-projects will now refer to the same 'libs' directory
-  maven { url 'http://ct.elcom.local/download/maven2/' } // spb local mirror of some packages
   maven { url 'http://bits.netbeans.org/maven2/' }
   maven { url 'https://repo.jenkins-ci.org/releases/' }
   jcenter()
@@ -36,7 +35,7 @@ dependencies {
   compile group: 'org.assertj',           name: 'assertj-core',   version: '3.4.1'
 
   // Jenkis Pipeline JUnit
-  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version:'1.2'
+  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version: '1.4'
   compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
 
   // grapes
@@ -46,6 +45,7 @@ dependencies {
 
   // integration tests dependecies
   integrationTestCompile group: 'org.jvnet.mock-javamail',name: 'mock-javamail',  version: '1.9'
+  integrationTestCompile group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.30'
 }
 
 // In this section you declare the dependencies for your production and test code
@@ -82,7 +82,7 @@ sharedLibrary {
   coreVersion = "2.176.2"
   testHarnessVersion = "2.54"
   pluginDependencies {
-    workflowCpsGlobalLibraryPluginVersion = "2.15"
+    workflowCpsGlobalLibraryPluginVersion = "2.16"
     dependency("org.jenkins-ci.plugins", "pipeline-input-step", "2.8")
     dependency("org.jenkins-ci.plugins", "email-ext", "2.63")
   }
@@ -95,6 +95,7 @@ test {
 }
 
 integrationTest {
+  systemProperties 'java.net.preferIPv4Stack' : true
   testLogging {
     events "PASSED", "FAILED", "SKIPPED"
   }

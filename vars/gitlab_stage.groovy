@@ -9,7 +9,7 @@ def call(_stages,_name, _node, _timeout, Closure _closure) {
         }
       }
     } else {
-      //updateGitlabCommitStatus name: _name, state: 'canceled'
+      updateGitlabCommitStatus name: _name, state: 'canceled'
     }
   }
 }

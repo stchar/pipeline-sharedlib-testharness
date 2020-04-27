@@ -8,7 +8,7 @@ abstract class AbstractLibClass implements Serializable {
     this.script = script
   }
 
-
   AbstractLibClass () {
+    this.script = null
   }
 }

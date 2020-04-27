@@ -3,15 +3,10 @@ package org.hcm.libjenkins
 @Grab('com.github.zafarkhaja:java-semver:0.9.0')
 import com.github.zafarkhaja.semver.Version
 import groovy.transform.InheritConstructors
+
 // Class declaration
 @InheritConstructors
-class Gitlab extends AbstractLibClass {
-
-  // Helper functions
-  def is_upstream(name) {
-    return ( !(name.equals(''))
-      && (name =~ /^master$/ || name =~ /^rel-.*$/) )
-  }
+class Semver extends AbstractLibClass {
 
   /**
   * Incremet semver value
