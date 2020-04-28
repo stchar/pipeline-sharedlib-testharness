@@ -33,24 +33,15 @@ class TestJenkinsCommonLib extends BasePipelineTest {
 
   @Test
   void should_execute_without_errors() throws Exception {
-    def script = runScript("template/gitlab.groovy")
-    //printCallStack()
-  }
-
-  @Test
-  void verify_is_upstream() throws Exception {
-    def script = runScript("template/gitlab.groovy")
-    assertEquals('Verify is_upstream ', false, script.gitlab_lib.is_upstream('feature'))
-    assertEquals('Verify is_upstream ', true, script.gitlab_lib.is_upstream('master'))
-    assertEquals('Verify is_upstream ', true, script.gitlab_lib.is_upstream('rel-1.2.3'))
-    //printCallStack()
+    def script = runScript("template/semver.groovy")
+    printCallStack()
   }
 
   @Test
   void verify_increment_version() throws Exception {
-    def script = runScript("template/gitlab.groovy")
-    assertEquals('Verify increment_version ', "1.2.4", script.gitlab_lib.increment_version('1.2.3'))
-    //printCallStack()
+    def script = runScript("template/semver.groovy")
+    assertEquals('Verify increment_version ', "1.2.4", script.semver_lib.increment_version('1.2.3'))
+    printCallStack()
   }
 
 }
