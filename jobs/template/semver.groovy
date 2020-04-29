@@ -1,6 +1,5 @@
 jc = library('jenkins-commons')
-
-release_lib = jc.org.hcm.libjenkins.Release.new(this)
+semver_lib = jc.org.hcm.libjenkins.Semver.new()
 
 node() {
   echo "Hello World!"

@@ -17,6 +17,5 @@ node() {
   echo "component.mailto= ${component.mailto}"
   echo "component.body= ${component.body}"
   release_lib.release_mail(component)
-
   echo "Mail Sent"
 }

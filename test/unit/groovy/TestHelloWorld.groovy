@@ -20,7 +20,7 @@ class TestHelloWorld extends BasePipelineTest {
   void setUp() throws Exception {
     scriptRoots += 'jobs'
     super.setUp()
-}
+  }
 
   @Test
   void testHello() {
