@@ -41,7 +41,7 @@ dependencies {
   // grapes
   compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.0-alpha-3'
   compile       group: 'com.github.zafarkhaja',  name: 'java-semver',    version: '0.9.0'
-  compile       group: 'org.apache.commons',     name: 'commons-math3',  version: '3.4.1'
+  compile       group: 'org.apache.commons',     name: 'commons-math3',  version: '3.6.1'
 
   // integration tests dependecies
   integrationTestCompile group: 'org.jvnet.mock-javamail',name: 'mock-javamail',  version: '1.9'
