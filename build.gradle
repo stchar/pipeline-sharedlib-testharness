@@ -36,7 +36,7 @@ dependencies {
 
   // Jenkis Pipeline JUnit
   compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version: '1.4'
-  compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
+  compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.34'
 
   // grapes
   compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.22'
