@@ -29,23 +29,23 @@ repositories {
 }
 
 dependencies {
-  testImplementation(group: 'junit', name: 'junit', version: '4.12')
+  testImplementation(group: 'junit', name: 'junit', version: '4.13.2')
 
   compile group: 'junit', name: 'junit', version: '4.12'
-  compile group: 'org.assertj',           name: 'assertj-core',   version: '3.4.1'
+  compile group: 'org.assertj',           name: 'assertj-core',   version: '3.26.0'
 
   // Jenkis Pipeline JUnit
   compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version: '1.4'
-  compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
+  compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.34'
 
   // grapes
-  compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.0-alpha-3'
+  compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.22'
   compile       group: 'com.github.zafarkhaja',  name: 'java-semver',    version: '0.10.2'
-  compile       group: 'org.apache.commons',     name: 'commons-math3',  version: '3.4.1'
+  compile       group: 'org.apache.commons',     name: 'commons-math3',  version: '3.6.1'
 
   // integration tests dependecies
   integrationTestCompile group: 'org.jvnet.mock-javamail',name: 'mock-javamail',  version: '1.9'
-  integrationTestCompile group: 'org.slf4j', name: 'slf4j-nop', version: '1.7.30'
+  integrationTestCompile group: 'org.slf4j', name: 'slf4j-nop', version: '2.0.13'
 }
 
 // In this section you declare the dependencies for your production and test code
