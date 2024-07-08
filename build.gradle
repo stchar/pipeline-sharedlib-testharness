@@ -35,7 +35,7 @@ dependencies {
   compile group: 'org.assertj',           name: 'assertj-core',   version: '3.4.1'
 
   // Jenkis Pipeline JUnit
-  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version: '1.4'
+  compile group: 'com.lesfurets', name:'jenkins-pipeline-unit', version: '1.20'
   compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
 
   // grapes
