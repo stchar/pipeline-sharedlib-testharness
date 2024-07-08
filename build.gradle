@@ -39,7 +39,7 @@ dependencies {
   compile group: 'com.cloudbees', name: 'groovy-cps',           version: '1.12'
 
   // grapes
-  compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.0-alpha-3'
+  compile       group: 'org.codehaus.groovy',    name: 'groovy-json',    version: '3.0.22'
   compile       group: 'com.github.zafarkhaja',  name: 'java-semver',    version: '0.9.0'
   compile       group: 'org.apache.commons',     name: 'commons-math3',  version: '3.4.1'
 
